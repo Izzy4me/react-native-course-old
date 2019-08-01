@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, TextInput, View, Button } from 'react-native';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -7,12 +7,37 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component {
+
+  state = {
+    placeName: ''
+  };
+
+  placeNameChangedHandler = (value) => {
+    this.setState({
+      placeName: value
+    });
+  }
+
+  placeSubmitHandler = () => {
+    alert('Place submited!');
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.placeInput}
+            value={this.state.placeName}
+            placeholder='Name your place'
+            onChangeText={this.placeNameChangedHandler}
+          />
+          <Button
+            title="Add place"
+            style={styles.placeButton}
+            onPress={this.placeSubmitHandler}  
+          />
+        </View>
       </View>
     );
   }
@@ -21,18 +46,25 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    padding: 26,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "flex-start"
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  inputContainer: {
+    // flex: 1,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  placeInput: {
+    width: "70%"
   },
+  placeButton: {
+    width: "30%"
+  },
+  listContainer: {
+    width: "100%"
+  }
 });
